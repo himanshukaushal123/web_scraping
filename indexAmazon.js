@@ -33,8 +33,8 @@ async function scrapeJobHeader() {
             $(".sg-col-4-of-12").each((index, element) => {
                 const Title = $(element).find(".a-text-normal").text();/*children(".result-heading").children(".result-title")*/
                 const price = $(element).find(".a-price-whole").text();
-                const url=$(element).find(".a-link-normal ").attr("href");
-                const scrapeResult = { Title, price,url};
+                const url = $(element).find(".a-link-normal ").attr("href");
+                const scrapeResult = { Title, price, url };
                 scrapeResults.push(scrapeResult);
             });
         }
@@ -42,8 +42,8 @@ async function scrapeJobHeader() {
             $(".sg-col-0-of-12").each((index, element) => {
                 const Title = $(element).find(".a-text-normal").text();/*children(".result-heading").children(".result-title")*/
                 const price = $(element).find(".a-price-whole").text();
-                const url=$(element).find(".a-link-normal ").attr("href");
-                const scrapeResult = { Title, price,url};
+                const url = $(element).find(".a-link-normal ").attr("href");
+                const scrapeResult = { Title, price, url };
                 scrapeResults.push(scrapeResult);
             })
         }
@@ -61,10 +61,8 @@ async function scrapeDescription(jobwithHeader) {
         try {
             const htmlResult = await request.get(job.url);
             const $ = await cheerio.load(htmlResult);
-         $("#detailBulletsWrapper_feature_div").find(".detail-bullet-list").each(() => {
-            list.push(this.text());
-         });
-         job.descripton=list;
+            const des = $("#detailBullets_feature_div").children(".a-unordered-list").text();
+            job.descripton = des;
             return job;
         } catch (error) {
             console.error(error);
